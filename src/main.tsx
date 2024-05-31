@@ -1,0 +1,33 @@
+import React from "react";
+import ReactDOM from "react-dom/client";
+// import { App } from "./App.tsx";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { Overview } from "../pages/Overview.tsx";
+import { StartPage } from "../pages/StartPage.tsx";
+import { Groups } from "../pages/Groups.tsx";
+import { GroupDetails } from "../pages/GroupDetails.tsx";
+
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <Overview />,
+  },
+  {
+    path: "get-started",
+    element: <StartPage />,
+  },
+  {
+    path: "groups",
+    element: <Groups />,
+  },
+  {
+    path: "group-details",
+    element: <GroupDetails />,
+  },
+]);
+
+ReactDOM.createRoot(document.getElementById("root")!).render(
+  <React.StrictMode>
+    <RouterProvider router={router} />
+  </React.StrictMode>
+);
