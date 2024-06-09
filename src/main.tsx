@@ -1,11 +1,11 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-// import { App } from "./App.tsx";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import { Overview } from "../pages/Overview.tsx";
-import { StartPage } from "../pages/StartPage.tsx";
-import { Groups } from "../pages/Groups.tsx";
-import { GroupDetails } from "../pages/GroupDetails.tsx";
+import { Overview } from "./pages/Overview.tsx";
+import { StartPage } from "./pages/StartPage.tsx";
+import { Groups } from "./pages/Groups.tsx";
+import { GroupDetails } from "./pages/GroupDetails.tsx";
+import "./index.css";
 
 const router = createBrowserRouter([
   {
