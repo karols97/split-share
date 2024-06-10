@@ -2,9 +2,8 @@ import { Sidebar } from "../components/Sidebar";
 
 export const GroupDetails = () => {
   return (
-    <div>
+    <div className="h-screen">
       <Sidebar />
-      GroupDetails
     </div>
   );
 };

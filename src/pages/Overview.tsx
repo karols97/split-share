@@ -2,9 +2,8 @@ import { Sidebar } from "../components/Sidebar";
 
 export const Overview = () => {
   return (
-    <div>
+    <div className="h-screen">
       <Sidebar />
-      Overview
     </div>
   );
 };
