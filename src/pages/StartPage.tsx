@@ -8,8 +8,9 @@ export const StartPage = () => {
   return (
     <div className="w-screen h-screen flex flex-col bg-start-page bg-cover">
       <div className="p-24 flex flex-row">
-        <h1 className="font-semibold text-8xl text-blue-900">Split</h1>
-        <h1 className="font-semibold text-8xl text-gray-800">Share</h1>
+        <h1 className="font-semibold text-6xl text-blue-600">Split</h1>
+        <h1 className="font-semibold text-6xl text-gray-800">Share</h1>
+        <img src="src\img\logo.svg" className="w-16 ml-4"></img>
       </div>
       <div className="flex h-full w-full justify-center">
         <Button

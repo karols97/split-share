@@ -1,9 +1,9 @@
-import { Sidebar } from "../components/Sidebar";
+import { SidebarMenu } from "../components/SidebarMenu";
 
 export const Overview = () => {
   return (
     <div className="h-screen">
-      <Sidebar />
+      <SidebarMenu />
     </div>
   );
 };
