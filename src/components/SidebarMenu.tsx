@@ -1,12 +1,21 @@
-import { useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { Sidebar } from "flowbite-react";
+import { useLocation, useNavigate } from "react-router-dom";
+import { RiDashboardFill } from "react-icons/ri";
+import { MdOutlineGroups2 } from "react-icons/md";
+import { FaMoneyBillTransfer } from "react-icons/fa6";
 
 export const SidebarMenu = () => {
   const navigate = useNavigate();
-  const [activeTab, setActiveTab] = useState("overview");
+  const location = useLocation().pathname;
+  const customTheme = {
+    item: {
+      base: "h-13 w-full flex items-center justify-center rounded-xl p-3 text-base font-semibold text-gray-900 hover:bg-blue-500 hover:bg-opacity-15 dark:text-white dark:hover:bg-gray-700 border border-gray-300",
+      active: "border-blue-500 border-2",
+    },
+  };
 
   return (
-    <div className="w-[275px] h-full border border-r-2 bg-slate-50">
+    <div className="w-[266px] h-full border border-r-2 bg-slate-50">
       <div className="flex flex-row items-center justify-between h-30 p-4">
         <div className="flex flex-row items-center">
           <h1 className="font-semibold text-3xl text-blue-600">Split</h1>
@@ -14,35 +23,27 @@ export const SidebarMenu = () => {
         </div>
         <img src="src\img\logo.svg" className="w-8"></img>
       </div>
-      <div className="mt-2 pl-4 pr-1">
-        <div
-          className={`w-full h-12 mt-2 border ${
-            activeTab === "overview" ? "border-blue-500 border-2" : "border-slate-300"
-          } rounded-xl hover:bg-blue-500 hover:bg-opacity-15 cursor-pointer`}
-          onClick={() => {
-            setActiveTab("overview");
-            navigate("/overview");
-          }}>
-          <h1 className="w-full h-full pl-5 content-center font-medium rounded-xl">Overview</h1>
-        </div>
-        <div
-          className={`w-full h-12 mt-2 border ${
-            activeTab === "groups" ? "border-blue-500 border-2" : "border-slate-300"
-          } rounded-xl hover:bg-blue-500 hover:bg-opacity-15 cursor-pointer`}
-          onClick={() => {
-            setActiveTab("groups");
-            navigate("/groups");
-          }}>
-          <h1 className="w-full h-full pl-5 content-center font-medium rounded-xl">Groups</h1>
-        </div>
-        <div
-          className={`w-full h-12 mt-2 border border-slate-300 bg-gray-200 rounded-xl cursor-not-allowed`}>
-          <h1 className="w-full h-full pl-5 content-center font-medium rounded-xl text-gray-500">
+      <Sidebar theme={customTheme} className="ml-2 w-64 h-fit">
+        <Sidebar.ItemGroup className="cursor-pointer">
+          <Sidebar.Item
+            active={location.includes("overview")}
+            onClick={() => navigate("/overview")}
+            icon={RiDashboardFill}>
+            Overview
+          </Sidebar.Item>
+          <Sidebar.Item
+            active={location.includes("groups")}
+            onClick={() => navigate("/groups")}
+            icon={MdOutlineGroups2}>
+            Groups
+          </Sidebar.Item>
+          <Sidebar.Item
+            icon={FaMoneyBillTransfer}
+            className="cursor-not-allowed bg-gray-200 hover:bg-gray-200 hover:bg-opacity-100 border-gray-200 text-gray-500">
             Expenses
-          </h1>
-        </div>
-      </div>
-      <div>{/* <SidebarMenu2 /> */}</div>
+          </Sidebar.Item>
+        </Sidebar.ItemGroup>
+      </Sidebar>
     </div>
   );
 };
