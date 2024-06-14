@@ -3,10 +3,13 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { RiDashboardFill } from "react-icons/ri";
 import { MdOutlineGroups2 } from "react-icons/md";
 import { FaMoneyBillTransfer } from "react-icons/fa6";
-import { IoSettingsOutline } from "react-icons/io5";
+// import { IoSettingsOutline } from "react-icons/io5";
+import { HiOutlineLanguage } from "react-icons/hi2";
 import { RiLogoutCircleLine } from "react-icons/ri";
+import { useTranslation } from "react-i18next";
 
 export const SidebarMenu = () => {
+  const { t, i18n } = useTranslation("translation");
   const navigate = useNavigate();
   const location = useLocation().pathname;
   const customTheme = {
@@ -14,6 +17,10 @@ export const SidebarMenu = () => {
       base: "h-13 w-full flex items-center justify-center rounded-xl p-3 text-base font-semibold text-gray-900 hover:bg-blue-500 hover:bg-opacity-15 dark:text-white dark:hover:bg-gray-700 border border-gray-300",
       active: "border-blue-500 border-2",
     },
+  };
+
+  const handleChangeLanguage = (language: string) => {
+    return i18n.changeLanguage(language);
   };
 
   return (
@@ -25,7 +32,7 @@ export const SidebarMenu = () => {
         </div>
         <img src="src\img\logo.svg" className="w-8"></img>
       </div>
-      <div className="grid grid-rows-2 h-full content-between">
+      <div className="grid grid-rows-2 h-full content-between capitalize">
         <div className="h-full">
           <Sidebar theme={customTheme} className="ml-2 w-64 h-fit">
             <Sidebar.ItemGroup className="cursor-pointer">
@@ -33,34 +40,51 @@ export const SidebarMenu = () => {
                 active={location.includes("overview")}
                 onClick={() => navigate("/overview")}
                 icon={RiDashboardFill}>
-                Overview
+                {t("overview")}
               </Sidebar.Item>
               <Sidebar.Item
                 active={location.includes("groups")}
                 onClick={() => navigate("/groups")}
                 icon={MdOutlineGroups2}>
-                Groups
+                {t("groups")}
               </Sidebar.Item>
               <Sidebar.Item
                 icon={FaMoneyBillTransfer}
                 className="cursor-not-allowed bg-gray-200 hover:bg-gray-200 hover:bg-opacity-100 border-gray-200 text-gray-500">
-                Expenses
+                {t("expenses")}
               </Sidebar.Item>
             </Sidebar.ItemGroup>
           </Sidebar>
         </div>
         <div className="flex items-end h-full">
-          <Sidebar className="h-13 ml-2" theme={customTheme}>
+          <Sidebar className="h-13 ml-2">
             <Sidebar.ItemGroup>
-              {/* <Sidebar.Collapse label="Options" icon={IoSettingsOutline}>
-                <Sidebar.Item onClick={() => navigate("/")}>Logout</Sidebar.Item>
-              </Sidebar.Collapse> */}
+              <Sidebar.Collapse
+                label={t("language")}
+                icon={HiOutlineLanguage}
+                className="p-3 h-10 hover:border-red-700 hover:bg-transparent cursor-pointer">
+                <Sidebar.Item
+                  onClick={() => handleChangeLanguage("en-US")}
+                  className="text-sm cursor-pointer">
+                  English
+                </Sidebar.Item>
+                <Sidebar.Item
+                  onClick={() => handleChangeLanguage("es")}
+                  className="text-sm cursor-pointer">
+                  Español
+                </Sidebar.Item>
+                <Sidebar.Item
+                  onClick={() => handleChangeLanguage("pl")}
+                  className="text-sm cursor-pointer">
+                  Polski
+                </Sidebar.Item>
+              </Sidebar.Collapse>
               <Sidebar.Item
                 onClick={() => navigate("/")}
                 className="border-0 hover:border hover:border-red-700 hover:bg-transparent cursor-pointer h-10 p-3"
                 icon={RiLogoutCircleLine}
                 color="red">
-                Logout
+                {t("logout")}
               </Sidebar.Item>
             </Sidebar.ItemGroup>
           </Sidebar>

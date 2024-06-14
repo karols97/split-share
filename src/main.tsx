@@ -6,6 +6,7 @@ import { StartPage } from "./pages/StartPage.tsx";
 import { Groups } from "./pages/Groups.tsx";
 import { GroupDetails } from "./pages/GroupDetails.tsx";
 import "./index.css";
+import "./i18n.ts";
 
 const router = createBrowserRouter([
   {
