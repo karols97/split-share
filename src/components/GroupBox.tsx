@@ -17,17 +17,20 @@ export const GroupBox = ({ group }: GroupBoxProps) => {
   const isUserOwed = sum > 0;
 
   return (
-    <div className="flex flex-col h-52 w-64 p-2 px-3 content-between border border-slate-300 rounded-lg bg-slate-50 shadow-xl hover:border-2 hover:border-blue-500 cursor-pointer">
-      <div className="flex flex-row items-center justify-between">
-        <h1 className="text-lg font-semibold">{group.name}</h1>
-        <RiRefund2Line size={24} />
+    <div className="flex flex-col h-52 w-64 p-2 px-3 content-between border border-slate-300 rounded-lg bg-slate-50 shadow-xl  hover:bg-blue-500 hover:bg-opacity-15 active:border-2 active:border-blue-500 cursor-pointer">
+      <div>
+        <div className="flex flex-row items-center justify-between">
+          <h1 className="text-xl font-semibold">{group.name}</h1>
+          <RiRefund2Line size={24} />
+        </div>
+        <p>Number of members: {group.members.length}</p>
       </div>
+
       <div className="grid grid-rows-1 bt h-full items-end">
         <p>{isUserOwed ? "You are owed:" : "You owe:"}</p>
         <p className={`text-6xl ${isUserOwed ? "text-green-500" : "text-red-500"} font-semibold`}>
           {sum}
         </p>
-        <p>Number of members: {group.members.length}</p>
       </div>
     </div>
   );
