@@ -3,6 +3,7 @@ import type { PayloadAction } from "@reduxjs/toolkit";
 import { initialGroupState } from "./initialGroupState";
 
 export interface GroupState {
+  id: string;
   name: string;
   members: {
     userName: string;
