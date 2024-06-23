@@ -1,6 +1,7 @@
 import { SidebarMenu } from "../components/SidebarMenu";
 import { useParams } from "react-router-dom";
 import { initialGroupState } from "../store/initialGroupState";
+import { GroupTable } from "../components/GroupTable";
 
 export const GroupDetails = () => {
   const { id } = useParams();
@@ -43,6 +44,11 @@ export const GroupDetails = () => {
           <div className="flex flex-col py-5">
             <p>Created on: 24.06.2024</p>
             <p>Number of members: {group?.members.length}</p>
+          </div>
+          <div className="flex w-full mt-4 place-content-center">
+            <div className="align-middle w-fit border-2 border-gray-400 rounded-lg p-2">
+              <GroupTable group={group} />
+            </div>
           </div>
         </div>
       </div>
