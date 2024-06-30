@@ -5,10 +5,10 @@ type GroupTableProps = {
   group: GroupState;
 };
 
-export const GroupTable = ({ group }: GroupTableProps) => {
+export const MembersTable = ({ group }: GroupTableProps) => {
   return (
     <Table className="w-[700px]">
-      <Table.Head className="normal-case border-b p-0 bg-teal-500">
+      <Table.Head className="normal-case border-b p-0">
         <Table.HeadCell className="w-4/6 text-center">Member</Table.HeadCell>
         <Table.HeadCell className="text-center">Balance</Table.HeadCell>
         <Table.HeadCell></Table.HeadCell>

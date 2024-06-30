@@ -3,7 +3,6 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { RiDashboardFill } from "react-icons/ri";
 import { MdOutlineGroups2 } from "react-icons/md";
 import { FaMoneyBillTransfer } from "react-icons/fa6";
-// import { IoSettingsOutline } from "react-icons/io5";
 import { HiOutlineLanguage } from "react-icons/hi2";
 import { RiLogoutCircleLine } from "react-icons/ri";
 import { useTranslation } from "react-i18next";
@@ -35,7 +34,7 @@ export const SidebarMenu = ({ children }: SidebarMenuProps) => {
             <h1 className="font-semibold text-3xl text-blue-600">Split</h1>
             <h1 className="font-semibold text-3xl text-gray-800">Share</h1>
           </div>
-          <img src="src\img\logo.svg" className="w-8"></img>
+          <img src="\src\img\logo.svg" className="w-8"></img>
         </div>
         <div className="grid grid-rows-2 h-full content-between capitalize">
           <div className="h-full">

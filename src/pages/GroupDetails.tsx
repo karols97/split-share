@@ -1,7 +1,8 @@
 import { SidebarMenu } from "../components/SidebarMenu";
 import { useParams } from "react-router-dom";
 import { initialGroupState } from "../store/initialGroupState";
-import { GroupTable } from "../components/GroupTable";
+import { MembersTable } from "../components/MembersTable";
+import { Button, Spinner } from "flowbite-react";
 
 export const GroupDetails = () => {
   const { id } = useParams();
@@ -23,35 +24,54 @@ export const GroupDetails = () => {
 
   return (
     <SidebarMenu>
-      <div className="flex w-full h-full place-content-center">
-        <div className="w-5/6 h-5/6 p-10 bg-slate-50 place-self-center rounded-3xl border">
-          <div className="flex flex-row pb-4 items-center justify-between">
-            <div>
-              <p>Group name:</p>
-              <h1 className="font-bold text-3xl">{group?.name}</h1>
+      {group ? (
+        <div className="flex w-full h-full place-content-center">
+          <div className="w-5/6 h-5/6 p-10 bg-slate-50 place-self-center rounded-3xl border">
+            <div className="flex flex-row pb-4 items-center justify-between">
+              <div>
+                <p>Group name:</p>
+                <h1 className="font-bold text-3xl">{group?.name}</h1>
+              </div>
+              <div className="flex flex-row items-baseline gap-5">
+                <p>Balance:</p>
+                <p
+                  className={`text-6xl ${
+                    isUserOwed ? "text-green-500" : "text-red-500"
+                  } font-semibold`}>
+                  {sum}
+                </p>
+              </div>
             </div>
-            <div className="flex flex-row items-baseline gap-5">
-              <p>Balance:</p>
-              <p
-                className={`text-6xl ${
-                  isUserOwed ? "text-green-500" : "text-red-500"
-                } font-semibold`}>
-                {sum}
-              </p>
+            <hr />
+            <div className="flex flex-col py-5">
+              <p>Created on: 24.06.2024</p>
+              <p>Number of members: {group?.members.length}</p>
             </div>
-          </div>
-          <hr />
-          <div className="flex flex-col py-5">
-            <p>Created on: 24.06.2024</p>
-            <p>Number of members: {group?.members.length}</p>
-          </div>
-          <div className="flex w-full mt-4 place-content-center">
-            <div className="align-middle w-fit border-2 border-gray-400 rounded-lg p-2">
-              <GroupTable group={group} />
+            <div className="flex flex-col place-items-center w-full mt-4">
+              <div className="flex w-fit border-2 border-gray-400 rounded-lg p-2">
+                <MembersTable group={group} />
+              </div>
+              <div className="flex flex-row justify-around gap-2 p-4">
+                <Button className="w-40" color={"blue"}>
+                  Settle
+                </Button>
+                <Button className="w-40" color={"blue"}>
+                  Add User
+                </Button>
+                <Button className="w-40" color={"red"}>
+                  Archive
+                </Button>
+              </div>
             </div>
           </div>
         </div>
-      </div>
+      ) : (
+        <div className="flex w-full h-full items-center justify-center">
+          <div>
+            <Spinner size={"xl"} color={"gray"} className="" />
+          </div>
+        </div>
+      )}
     </SidebarMenu>
   );
 };
