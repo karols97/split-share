@@ -1,13 +1,23 @@
+import { useEffect, useState } from "react";
 import { GroupBox } from "../components/GroupBox";
 import { SidebarMenu } from "../components/SidebarMenu";
-import { initialGroupState } from "../store/initialGroupState";
+import { Group } from "../store/server";
 
 export const Overview = () => {
+  const [groups, setGroups] = useState<Group[]>([]);
+
+  useEffect(() => {
+    fetch("/api/groups")
+      .then((res) => res.json())
+      .then((json) => setGroups(json.groups))
+      .catch((error) => console.error(error));
+  }, []);
+
   return (
     <SidebarMenu>
       <div className="h-full w-full grid grid-cols-3 gap-10 px-16 py-10 overflow-y-auto">
-        {initialGroupState.map((singleInitialGroupState) => {
-          return <GroupBox group={singleInitialGroupState} />;
+        {groups.map((singleGroup) => {
+          return <GroupBox group={singleGroup} />;
         })}
       </div>
     </SidebarMenu>

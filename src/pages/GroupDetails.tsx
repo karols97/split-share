@@ -1,12 +1,21 @@
 import { SidebarMenu } from "../components/SidebarMenu";
 import { useParams } from "react-router-dom";
-import { initialGroupState } from "../store/initialGroupState";
 import { MembersTable } from "../components/MembersTable";
 import { Button, Spinner } from "flowbite-react";
+import { useEffect, useState } from "react";
+import { Group } from "../store/server";
 
 export const GroupDetails = () => {
+  const [groups, setGroups] = useState<Group[]>([]);
+
+  useEffect(() => {
+    fetch("/api/groups")
+      .then((res) => res.json())
+      .then((json) => setGroups(json.groups))
+      .catch((error) => console.error(error));
+  }, []);
   const { id } = useParams();
-  const group = initialGroupState.find((singleGroup) => {
+  const group = groups.find((singleGroup) => {
     return singleGroup.id === id;
   });
 

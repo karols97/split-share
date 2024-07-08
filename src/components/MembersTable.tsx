@@ -1,8 +1,8 @@
 import { Button, Table, TableBody } from "flowbite-react";
-import { GroupState } from "../store/groupSlice";
+import { Group } from "../store/server";
 
 type GroupTableProps = {
-  group: GroupState;
+  group: Group;
 };
 
 export const MembersTable = ({ group }: GroupTableProps) => {

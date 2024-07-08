@@ -1,9 +1,9 @@
 import { RiRefund2Line } from "react-icons/ri";
-import { GroupState } from "../store/groupSlice";
+import { Group } from "../store/server";
 import { useNavigate } from "react-router-dom";
 
 type GroupBoxProps = {
-  group: GroupState;
+  group: Group;
 };
 
 export const GroupBox = ({ group }: GroupBoxProps) => {

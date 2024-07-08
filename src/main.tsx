@@ -5,10 +5,9 @@ import { Overview } from "./pages/Overview.tsx";
 import { StartPage } from "./pages/StartPage.tsx";
 import { Groups } from "./pages/Groups.tsx";
 import { GroupDetails } from "./pages/GroupDetails.tsx";
-import { store } from "./store/store.ts";
-import { Provider } from "react-redux";
 import "./index.css";
 import "./i18n.ts";
+import "./store/server.ts";
 
 const router = createBrowserRouter([
   {
@@ -30,9 +29,7 @@ const router = createBrowserRouter([
 ]);
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
-  <Provider store={store}>
-    <React.StrictMode>
-      <RouterProvider router={router} />
-    </React.StrictMode>
-  </Provider>
+  <React.StrictMode>
+    <RouterProvider router={router} />
+  </React.StrictMode>
 );
