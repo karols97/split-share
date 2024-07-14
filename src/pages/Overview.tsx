@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { GroupBox } from "../components/GroupBox";
 import { SidebarMenu } from "../components/SidebarMenu";
 import { Group } from "../store/server";
+import { AddGroupButton } from "../components/AddGroupButton";
 
 export const Overview = () => {
   const [groups, setGroups] = useState<Group[]>([]);
@@ -19,6 +20,7 @@ export const Overview = () => {
         {groups.map((singleGroup) => {
           return <GroupBox group={singleGroup} />;
         })}
+        <AddGroupButton />
       </div>
     </SidebarMenu>
   );
