@@ -4,6 +4,7 @@ import { MembersTable } from "../components/MembersTable";
 import { Button, Spinner } from "flowbite-react";
 import { useEffect, useState } from "react";
 import { Group } from "../store/server";
+import { ConfirmationModal } from "../components/ConfirmationModal";
 
 export const GroupDetails = () => {
   const [groups, setGroups] = useState<Group[]>([]);
@@ -61,9 +62,12 @@ export const GroupDetails = () => {
                 <MembersTable group={group} />
               </div>
               <div className="flex flex-row justify-around gap-2 p-4">
-                <Button className="w-40" color={"blue"}>
-                  Settle
-                </Button>
+                <ConfirmationModal label="Are you sure you want to settle all expenses?">
+                  <Button className="w-40" color={"blue"}>
+                    Settle
+                  </Button>
+                </ConfirmationModal>
+
                 <Button className="w-40" color={"blue"}>
                   Add User
                 </Button>

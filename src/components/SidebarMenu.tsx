@@ -29,7 +29,9 @@ export const SidebarMenu = ({ children }: SidebarMenuProps) => {
   return (
     <div className="flex flex-row">
       <div className="flex flex-col w-[266px] border border-r-2 bg-slate-50">
-        <div className="flex flex-row items-center justify-between p-4">
+        <div
+          className="flex flex-row items-center justify-between p-4 cursor-pointer"
+          onClick={() => navigate("/")}>
           <div className="flex flex-row items-center">
             <h1 className="font-semibold text-3xl text-blue-600">Split</h1>
             <h1 className="font-semibold text-3xl text-gray-800">Share</h1>
