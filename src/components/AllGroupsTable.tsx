@@ -28,13 +28,10 @@ export const AllGroupsTable = () => {
         <Table.Body>
           {groups ? (
             groups.map((singleGroup) => {
-              const sum = Number(
-                singleGroup.members
-                  .reduce((accumulator, currentValue) => {
-                    return accumulator + currentValue.amount;
-                  }, 0)
-                  .toFixed(2)
-              );
+              const sum = singleGroup.members.reduce((accumulator, currentValue) => {
+                return accumulator + Number(currentValue.amount);
+              }, 0);
+
               const isUserOwed = sum > 0;
               return (
                 <Table.Row
@@ -45,7 +42,7 @@ export const AllGroupsTable = () => {
                   <Table.Cell>{singleGroup.members.length}</Table.Cell>
                   <Table.Cell
                     className={`font-semibold ${isUserOwed ? "text-green-500" : "text-red-500"}`}>
-                    {sum}
+                    {sum.toFixed(2)}
                   </Table.Cell>
                   <Table.Cell>
                     <Badge color="success" className="w-fit">

@@ -26,7 +26,7 @@ export const MembersTable = ({ group }: GroupTableProps) => {
                 className={`p-0 py-1 text-center font-semibold ${
                   isUserOwed ? "text-green-500" : "text-red-500"
                 }`}>
-                {singleMember.amount}
+                {Number(singleMember.amount).toFixed(2)}
               </Table.Cell>
               <Table.Cell className="p-0 pl-2 py-1 text-left">
                 <Button className="p-0 m-0 h-6 w-20 items-center" color="blue">

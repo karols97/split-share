@@ -22,13 +22,9 @@ export const GroupDetails = () => {
 
   const sum =
     group &&
-    Number(
-      group.members
-        .reduce((accumulator, currentValue) => {
-          return accumulator + currentValue.amount;
-        }, 0)
-        .toFixed(2)
-    );
+    group.members.reduce((accumulator, currentValue) => {
+      return accumulator + Number(currentValue.amount);
+    }, 0);
 
   const isUserOwed = sum && sum > 0;
 
@@ -48,7 +44,7 @@ export const GroupDetails = () => {
                   className={`text-6xl ${
                     isUserOwed ? "text-green-500" : "text-red-500"
                   } font-semibold`}>
-                  {sum}
+                  {sum?.toFixed(2)}
                 </p>
               </div>
             </div>

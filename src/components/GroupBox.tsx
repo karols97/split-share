@@ -10,11 +10,9 @@ export const GroupBox = ({ group }: GroupBoxProps) => {
   const navigate = useNavigate();
 
   const sum = Number(
-    group.members
-      .reduce((accumulator, currentValue) => {
-        return accumulator + currentValue.amount;
-      }, 0)
-      .toFixed(2)
+    group.members.reduce((accumulator, currentValue) => {
+      return accumulator + Number(currentValue.amount);
+    }, 0)
   );
 
   const isUserOwed = sum > 0;
@@ -34,7 +32,7 @@ export const GroupBox = ({ group }: GroupBoxProps) => {
       <div className="grid grid-rows-1 bt h-full items-end">
         <p>{isUserOwed ? "You are owed:" : "You owe:"}</p>
         <p className={`text-6xl ${isUserOwed ? "text-green-500" : "text-red-500"} font-semibold`}>
-          {sum}
+          {sum.toFixed(2)}
         </p>
       </div>
     </div>
