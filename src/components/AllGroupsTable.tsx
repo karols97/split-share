@@ -2,6 +2,7 @@ import { Badge, Button, Spinner, Table } from "flowbite-react";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Group } from "../store/server";
+import { ShowDemoFeature } from "./ShowDemoFeature";
 
 export const AllGroupsTable = () => {
   const [groups, setGroups] = useState<Group[]>([]);
@@ -50,9 +51,11 @@ export const AllGroupsTable = () => {
                     </Badge>
                   </Table.Cell>
                   <Table.Cell>
-                    <Button color={"red"} className="py-0">
-                      Delete group
-                    </Button>
+                    <ShowDemoFeature>
+                      <Button color={"red"} className="py-0">
+                        Delete group
+                      </Button>
+                    </ShowDemoFeature>
                   </Table.Cell>
                 </Table.Row>
               );

@@ -20,8 +20,9 @@ export const Overview = () => {
       method: "POST",
       body: JSON.stringify(data),
     });
+
     const json = await res.json();
-    setGroups([...groups, json.group]);
+    setGroups(json.groups);
   };
 
   return (

@@ -5,6 +5,7 @@ import { Button, Spinner } from "flowbite-react";
 import { useEffect, useState } from "react";
 import { Group } from "../store/server";
 import { ConfirmationModal } from "../components/ConfirmationModal";
+import { ShowDemoFeature } from "../components/ShowDemoFeature";
 
 export const GroupDetails = () => {
   const [groups, setGroups] = useState<Group[]>([]);
@@ -58,18 +59,23 @@ export const GroupDetails = () => {
                 <MembersTable group={group} />
               </div>
               <div className="flex flex-row justify-around gap-2 p-4">
-                <ConfirmationModal label="Are you sure you want to settle all expenses?">
+                <ShowDemoFeature>
+                  <ConfirmationModal label="Are you sure you want to settle all expenses?">
+                    <Button className="w-40" color={"blue"}>
+                      Settle
+                    </Button>
+                  </ConfirmationModal>
+                </ShowDemoFeature>
+                <ShowDemoFeature>
                   <Button className="w-40" color={"blue"}>
-                    Settle
+                    Add User
                   </Button>
-                </ConfirmationModal>
-
-                <Button className="w-40" color={"blue"}>
-                  Add User
-                </Button>
-                <Button className="w-40" color={"red"}>
-                  Archive
-                </Button>
+                </ShowDemoFeature>
+                <ShowDemoFeature>
+                  <Button className="w-40" color={"red"}>
+                    Archive
+                  </Button>
+                </ShowDemoFeature>
               </div>
             </div>
           </div>

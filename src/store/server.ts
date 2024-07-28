@@ -135,7 +135,9 @@ createServer({
       let args = JSON.parse(request.requestBody);
       groups.push(args);
 
-      return { group: args };
+      return {
+        groups: createIds(groups),
+      };
     });
 
     this.get("/groups", () => {

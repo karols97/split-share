@@ -6,6 +6,7 @@ import { FaMoneyBillTransfer } from "react-icons/fa6";
 import { HiOutlineLanguage } from "react-icons/hi2";
 import { RiLogoutCircleLine } from "react-icons/ri";
 import { useTranslation } from "react-i18next";
+import { SwitchDemoFeatures } from "./SwitchDemoFeatures";
 
 type SidebarMenuProps = {
   children?: JSX.Element;
@@ -64,6 +65,7 @@ export const SidebarMenu = ({ children }: SidebarMenuProps) => {
           </div>
           <div className="flex items-end h-full">
             <Sidebar className="h-13 ml-2">
+              <SwitchDemoFeatures />
               <Sidebar.ItemGroup>
                 <Sidebar.Collapse
                   label={t("language")}

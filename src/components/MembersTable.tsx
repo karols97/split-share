@@ -1,5 +1,6 @@
 import { Button, Table, TableBody } from "flowbite-react";
 import { Group } from "../store/server";
+import { ShowDemoFeature } from "./ShowDemoFeature";
 
 type GroupTableProps = {
   group: Group;
@@ -18,7 +19,7 @@ export const MembersTable = ({ group }: GroupTableProps) => {
         {group.members.map((singleMember) => {
           const isUserOwed = singleMember.amount > 0;
           return (
-            <Table.Row>
+            <Table.Row className="min-h-20">
               <Table.Cell className="p-0 pl-2 py-1 text-left text-gray-700 font-bold w-4/6">
                 {singleMember.userName}
               </Table.Cell>
@@ -28,16 +29,20 @@ export const MembersTable = ({ group }: GroupTableProps) => {
                 }`}>
                 {Number(singleMember.amount).toFixed(2)}
               </Table.Cell>
-              <Table.Cell className="p-0 pl-2 py-1 text-left">
-                <Button className="p-0 m-0 h-6 w-20 items-center" color="blue">
-                  <p className="py-0">{isUserOwed ? "Settle" : "Pay up"}</p>
-                </Button>
-              </Table.Cell>
-              <Table.Cell className="p-0 pl-2 px-2 py-1 text-left">
-                <Button className="p-0 m-0 h-6 w-16 items-center" color="red">
-                  <p>Remove</p>
-                </Button>
-              </Table.Cell>
+              <ShowDemoFeature>
+                <Table.Cell className="p-0 pl-2 py-1 text-left">
+                  <Button className="p-0 m-0 h-6 w-20 items-center" color="blue">
+                    <p className="py-0">{isUserOwed ? "Settle" : "Pay up"}</p>
+                  </Button>
+                </Table.Cell>
+              </ShowDemoFeature>
+              <ShowDemoFeature>
+                <Table.Cell className="p-0 pl-2 px-2 py-1 text-left">
+                  <Button className="p-0 m-0 h-6 w-16 items-center" color="red">
+                    <p>Remove</p>
+                  </Button>
+                </Table.Cell>
+              </ShowDemoFeature>
             </Table.Row>
           );
         })}
