@@ -6,6 +6,6 @@ type ShowDemoFeatureProps = {
 };
 
 export const ShowDemoFeature = ({ children }: ShowDemoFeatureProps) => {
-  const isShowedDemoFeatures = useSelector((state: RootState) => state.demoFeatures.value);
+  const isShowedDemoFeatures = useSelector((state: RootState) => state.app.demoFeatures);
   return isShowedDemoFeatures && children;
 };

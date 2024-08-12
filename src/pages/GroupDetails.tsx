@@ -55,7 +55,7 @@ export const GroupDetails = () => {
               <p>Number of members: {group?.members.length}</p>
             </div>
             <div className="flex flex-col place-items-center w-full mt-4">
-              <div className="flex w-fit border-2 border-gray-400 rounded-lg p-2">
+              <div className="flex w-full rounded-lg p-2">
                 <MembersTable group={group} />
               </div>
               <div className="flex flex-row justify-around gap-2 p-4">

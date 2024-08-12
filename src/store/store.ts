@@ -1,9 +1,9 @@
 import { configureStore } from "@reduxjs/toolkit";
-import demoFeaturesReducer from "./demoFeaturesSlice";
+import appReducer from "./appSlice.ts";
 
 export const store = configureStore({
   reducer: {
-    demoFeatures: demoFeaturesReducer,
+    app: appReducer,
   },
 });
 

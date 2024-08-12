@@ -26,18 +26,18 @@ export const AllGroupsTable = () => {
           <Table.HeadCell>Status</Table.HeadCell>
           <Table.HeadCell></Table.HeadCell>
         </Table.Head>
-        <Table.Body>
+        <Table.Body id="tableBody">
           {groups ? (
             groups.map((singleGroup) => {
               const sum = singleGroup.members.reduce((accumulator, currentValue) => {
                 return accumulator + Number(currentValue.amount);
               }, 0);
-
               const isUserOwed = sum > 0;
               return (
                 <Table.Row
                   className="hover:bg-blue-500 hover:bg-opacity-15 cursor-pointer"
-                  onClick={() => navigate(`${singleGroup.id}`)}>
+                  onClick={() => navigate(`${singleGroup.id}`)}
+                  id={`row-${singleGroup.id}`}>
                   <Table.Cell>{singleGroup.id}</Table.Cell>
                   <Table.Cell>{singleGroup.name}</Table.Cell>
                   <Table.Cell>{singleGroup.members.length}</Table.Cell>

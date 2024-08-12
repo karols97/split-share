@@ -8,8 +8,8 @@ type GroupTableProps = {
 
 export const MembersTable = ({ group }: GroupTableProps) => {
   return (
-    <Table className="w-[700px]">
-      <Table.Head className="normal-case border-b p-0">
+    <Table>
+      <Table.Head className="normal-case border-b p-0 bg-transparent">
         <Table.HeadCell className="w-4/6 text-center">Member</Table.HeadCell>
         <Table.HeadCell className="text-center">Balance</Table.HeadCell>
         <Table.HeadCell></Table.HeadCell>
