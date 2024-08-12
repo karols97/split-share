@@ -4,6 +4,7 @@ import { SidebarMenu } from "../components/SidebarMenu";
 import { Group } from "../store/server";
 import { AddGroupButton } from "../components/AddGroupButton";
 import { SubmitHandler } from "react-hook-form";
+import { Topbar } from "../components/Topbar";
 
 export const Overview = () => {
   const [groups, setGroups] = useState<Group[]>([]);
@@ -27,12 +28,15 @@ export const Overview = () => {
 
   return (
     <SidebarMenu>
-      <div className="h-full w-full grid grid-cols-3 gap-10 px-16 py-10 overflow-y-auto">
-        {groups.map((singleGroup) => {
-          return <GroupBox group={singleGroup} />;
-        })}
-        <AddGroupButton onSubmit={onSubmit} />
-      </div>
+      <>
+        <Topbar title="Overview" />
+        <div className="h-screen grid grid-cols-3 gap-10 px-16 py-10 overflow-y-scroll">
+          {groups.map((singleGroup) => {
+            return <GroupBox group={singleGroup} />;
+          })}
+          <AddGroupButton onSubmit={onSubmit} />
+        </div>
+      </>
     </SidebarMenu>
   );
 };

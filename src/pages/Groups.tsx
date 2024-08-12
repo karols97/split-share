@@ -1,13 +1,16 @@
 import { AllGroupsTable } from "../components/AllGroupsTable";
 import { SidebarMenu } from "../components/SidebarMenu";
+import { Topbar } from "../components/Topbar";
+
 export const Groups = () => {
   return (
-    <div className="h-screen">
-      <SidebarMenu>
-        <div className="p-10">
+    <SidebarMenu>
+      <>
+        <Topbar title={"All Groups Table"}></Topbar>
+        <div className="h-screen overflow-y-scroll">
           <AllGroupsTable />
         </div>
-      </SidebarMenu>
-    </div>
+      </>
+    </SidebarMenu>
   );
 };

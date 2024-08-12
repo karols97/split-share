@@ -1,4 +1,4 @@
-import { Sidebar } from "flowbite-react";
+import { Button, Sidebar, Tooltip } from "flowbite-react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { RiDashboardFill } from "react-icons/ri";
 import { MdOutlineGroups2 } from "react-icons/md";
@@ -24,7 +24,7 @@ export const SidebarMenu = ({ children }: SidebarMenuProps) => {
   const location = useLocation().pathname;
   const customTheme = {
     item: {
-      base: "h-13 w-full flex items-center justify-center rounded-xl p-3 text-base font-semibold text-gray-900 hover:bg-blue-500 hover:bg-opacity-15 dark:text-white dark:hover:bg-gray-700 border border-gray-300",
+      base: "h-10 w-full flex items-center justify-center rounded-xl p-3 text-sm font-semibold text-gray-900 hover:bg-blue-500 hover:bg-opacity-15 dark:text-white dark:hover:bg-gray-700 border border-gray-300",
       active: "border-blue-500 border-2",
       icon: {
         base: "h-6 w-6 flex-shrink-0 text-gray-500 transition duration-75 group-hover:text-gray-900 dark:text-gray-400 dark:hover:text-white",
@@ -38,10 +38,10 @@ export const SidebarMenu = ({ children }: SidebarMenuProps) => {
   };
 
   return (
-    <div className="flex flex-row">
+    <div className="flex flex-row h-svh">
       <div
         className={`flex flex-col transition-all ${
-          isExpanded ? "w-[266px]" : "w-[74px] px-0"
+          isExpanded ? "w-[240px]" : "w-[74px] px-0"
         }  border border-r-2 bg-slate-50`}>
         <div
           className="flex flex-row items-center justify-between p-4 cursor-pointer"
@@ -59,7 +59,7 @@ export const SidebarMenu = ({ children }: SidebarMenuProps) => {
           <div className="h-full">
             <Sidebar
               theme={customTheme}
-              className={`${isExpanded ? "ml-2 w-64 h-fit" : "w-14 ml-0 px-0"}  `}>
+              className={`${isExpanded ? "ml-2 w-56 h-fit" : "w-14 ml-0 px-0"} text-sm`}>
               <Sidebar.ItemGroup className="cursor-pointer">
                 <Sidebar.Item
                   active={location.includes("overview")}
@@ -87,32 +87,67 @@ export const SidebarMenu = ({ children }: SidebarMenuProps) => {
           </div>
           <div className="flex items-end h-full">
             <Sidebar
-              className={`h-13 ${isExpanded ? "ml-2 w-64 h-fit" : "w-14 ml-0 px-0"}`}
+              className={`h-13 ${isExpanded ? "ml-2 w-58 h-fit" : "w-14 ml-0 px-0"}`}
               theme={customTheme}>
               <SwitchDemoFeatures />
               <Sidebar.ItemGroup>
-                <Sidebar.Collapse
-                  label={t("language")}
-                  icon={HiOutlineLanguage}
-                  className={`p-3 h-10 ${
-                    !isExpanded && "hidden"
-                  } hover:border-red-700 hover:bg-transparent cursor-pointer`}>
-                  <Sidebar.Item
-                    onClick={() => handleChangeLanguage("en-US")}
-                    className="text-sm border-0 group font-normal hover:bg-blue-200 hover:font-semibold hover:bg-transparent cursor-pointer h-6 p-3">
-                    {isExpanded && "English"}
-                  </Sidebar.Item>
-                  <Sidebar.Item
-                    onClick={() => handleChangeLanguage("es")}
-                    className="text-sm border-0 group font-normal hover:bg-blue-200 hover:font-semibold hover:bg-transparent cursor-pointer h-6 p-3">
-                    {isExpanded && "Español"}
-                  </Sidebar.Item>
-                  <Sidebar.Item
-                    onClick={() => handleChangeLanguage("pl")}
-                    className="text-sm border-0 group font-normal hover:bg-blue-200 hover:font-semibold hover:bg-transparent cursor-pointer h-6 p-3">
-                    {isExpanded && "Polski"}
-                  </Sidebar.Item>
-                </Sidebar.Collapse>
+                {isExpanded ? (
+                  <Sidebar.Collapse
+                    label={t("language")}
+                    icon={HiOutlineLanguage}
+                    className={`p-3 h-10 hover:border-red-700 text-sm hover:bg-transparent cursor-pointer`}>
+                    <Sidebar.Item
+                      onClick={() => handleChangeLanguage("en-US")}
+                      className="text-sm border-0 group font-normal hover:bg-blue-200 hover:font-semibold hover:bg-transparent cursor-pointer h-6 p-3">
+                      {"English"}
+                    </Sidebar.Item>
+                    <Sidebar.Item
+                      onClick={() => handleChangeLanguage("es")}
+                      className="text-sm border-0 group font-normal hover:bg-blue-200 hover:font-semibold hover:bg-transparent cursor-pointer h-6 p-3">
+                      {"Español"}
+                    </Sidebar.Item>
+                    <Sidebar.Item
+                      onClick={() => handleChangeLanguage("pl")}
+                      className="text-sm border-0 group font-normal hover:bg-blue-200 hover:font-semibold hover:bg-transparent cursor-pointer h-6 p-3">
+                      {"Polski"}
+                    </Sidebar.Item>
+                  </Sidebar.Collapse>
+                ) : (
+                  <Tooltip
+                    content={
+                      <div className="p-0">
+                        <Button
+                          color={"gray"}
+                          className="flex items-center w-full rounded-none h-8 font-normal hover:text-gray-800"
+                          onClick={() => handleChangeLanguage("en-US")}>
+                          {"English"}
+                        </Button>
+                        <Button
+                          color={"gray"}
+                          className="flex items-center w-full rounded-none h-8 font-normal hover:text-gray-800"
+                          onClick={() => handleChangeLanguage("es")}>
+                          {"Español"}
+                        </Button>
+                        <Button
+                          color={"gray"}
+                          className="flex items-center w-full rounded-none h-8 font-normal hover:text-gray-800"
+                          onClick={() => handleChangeLanguage("pl")}>
+                          {"Polski"}
+                        </Button>
+                      </div>
+                    }
+                    placement="right"
+                    style="light"
+                    arrow={false}
+                    trigger="click"
+                    className="p-0"
+                    animation={false}>
+                    <div className="bg-transparent border-0 text-gray-500 hover:text-gray-800 px-2 cursor-pointer mb-2">
+                      <HiOutlineLanguage size={24} />
+                    </div>
+                  </Tooltip>
+                )}
+
                 <Sidebar.Item
                   onClick={() => dispatch(handleShowSidebar())}
                   className={`border-0 group font-normal hover:bg-blue-200 hover:bg-transparent cursor-pointer h-10 p-3 ${
@@ -135,7 +170,7 @@ export const SidebarMenu = ({ children }: SidebarMenuProps) => {
           </div>
         </div>
       </div>
-      <div className="h-screen w-full">{children}</div>
+      <div className="flex flex-col h-screen w-full">{children}</div>
     </div>
   );
 };

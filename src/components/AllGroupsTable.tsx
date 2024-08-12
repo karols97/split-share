@@ -16,7 +16,7 @@ export const AllGroupsTable = () => {
   }, []);
 
   return (
-    <div className="w-full h-full">
+    <div className="w-full h-full p-10 mb-10">
       <Table>
         <Table.Head className="rounded-t-lg border-b-2 border-blue-600">
           <Table.HeadCell>Group ID</Table.HeadCell>
@@ -35,7 +35,7 @@ export const AllGroupsTable = () => {
               const isUserOwed = sum > 0;
               return (
                 <Table.Row
-                  className="hover:bg-blue-500 hover:bg-opacity-15 cursor-pointer"
+                  className="hover:bg-blue-500 hover:bg-opacity-15 cursor-pointer h-20"
                   onClick={() => navigate(`${singleGroup.id}`)}
                   id={`row-${singleGroup.id}`}>
                   <Table.Cell>{singleGroup.id}</Table.Cell>
