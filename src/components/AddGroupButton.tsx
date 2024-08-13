@@ -15,13 +15,24 @@ import { Group, Member } from "../store/server";
 import { SubmitHandler, useForm } from "react-hook-form";
 
 type AddGroupButtonProps = {
-  onSubmit: SubmitHandler<Group>;
+  setGroups: (groups: Group[]) => void;
 };
 
-export const AddGroupButton = ({ onSubmit }: AddGroupButtonProps) => {
+export const AddGroupButton = ({ setGroups }: AddGroupButtonProps) => {
   const [isAddGroupOpen, setIsAddGroupOpen] = useState(false);
   const [newGroupMembers, setNewGroupMembers] = useState<Member[]>([]);
   const { register, handleSubmit, formState, reset, watch } = useForm<Group>();
+
+  const onSubmit: SubmitHandler<Group> = async (data) => {
+    const res = await fetch("/api/groups", {
+      method: "POST",
+      body: JSON.stringify(data),
+    });
+
+    const json = await res.json();
+    setGroups(json.groups as Group[]);
+    setIsAddGroupOpen(false);
+  };
 
   const allFields = watch();
   useEffect(() => {
@@ -53,10 +64,6 @@ export const AddGroupButton = ({ onSubmit }: AddGroupButtonProps) => {
 
     setNewGroupMembers(groupMembers);
   };
-
-  useEffect(() => {
-    formState.isSubmitted && setIsAddGroupOpen(false);
-  }, []);
 
   return (
     <>

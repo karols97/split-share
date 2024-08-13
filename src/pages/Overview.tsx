@@ -3,7 +3,6 @@ import { GroupBox } from "../components/GroupBox";
 import { SidebarMenu } from "../components/SidebarMenu";
 import { Group } from "../store/server";
 import { AddGroupButton } from "../components/AddGroupButton";
-import { SubmitHandler } from "react-hook-form";
 import { Topbar } from "../components/Topbar";
 
 export const Overview = () => {
@@ -16,16 +15,6 @@ export const Overview = () => {
       .catch((error) => console.error(error));
   }, []);
 
-  const onSubmit: SubmitHandler<Group> = async (data) => {
-    const res = await fetch("/api/groups", {
-      method: "POST",
-      body: JSON.stringify(data),
-    });
-
-    const json = await res.json();
-    setGroups(json.groups);
-  };
-
   return (
     <SidebarMenu>
       <>
@@ -34,7 +23,7 @@ export const Overview = () => {
           {groups.map((singleGroup) => {
             return <GroupBox group={singleGroup} />;
           })}
-          <AddGroupButton onSubmit={onSubmit} />
+          <AddGroupButton setGroups={setGroups} />
         </div>
       </>
     </SidebarMenu>
