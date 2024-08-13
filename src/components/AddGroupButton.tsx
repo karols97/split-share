@@ -8,7 +8,7 @@ import {
   Spinner,
   TextInput,
 } from "flowbite-react";
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
 import { IoIosAddCircleOutline } from "react-icons/io";
 import { IoIosRemoveCircleOutline } from "react-icons/io";
 import { Group, Member } from "../store/server";
@@ -21,7 +21,12 @@ type AddGroupButtonProps = {
 export const AddGroupButton = ({ onSubmit }: AddGroupButtonProps) => {
   const [isAddGroupOpen, setIsAddGroupOpen] = useState(false);
   const [newGroupMembers, setNewGroupMembers] = useState<Member[]>([]);
-  const { register, handleSubmit, formState } = useForm<Group>();
+  const { register, handleSubmit, formState, reset, watch } = useForm<Group>();
+
+  const allFields = watch();
+  useEffect(() => {
+    reset({ ...allFields, members: newGroupMembers });
+  }, [newGroupMembers]);
 
   const addGroupMember = () => {
     const groupMembers = [...newGroupMembers];
@@ -33,14 +38,12 @@ export const AddGroupButton = ({ onSubmit }: AddGroupButtonProps) => {
   const removeGroupMember = (index: number) => {
     const groupMembers = [...newGroupMembers];
     groupMembers.splice(index, 1);
-
     setNewGroupMembers(groupMembers);
   };
 
   const updateMemberName = (event: ChangeEvent<HTMLInputElement>, index: number) => {
     const groupMembers = [...newGroupMembers];
     groupMembers[index].userName = event.target.value;
-
     setNewGroupMembers(groupMembers);
   };
 
@@ -50,6 +53,10 @@ export const AddGroupButton = ({ onSubmit }: AddGroupButtonProps) => {
 
     setNewGroupMembers(groupMembers);
   };
+
+  useEffect(() => {
+    formState.isSubmitted && setIsAddGroupOpen(false);
+  }, []);
 
   return (
     <>
@@ -100,7 +107,6 @@ export const AddGroupButton = ({ onSubmit }: AddGroupButtonProps) => {
                             color={"blue"}
                             type="number"
                             step="0.01"
-                            // value={singleNewGroupMember.amount}
                             onBlur={(e) => updateMemberAmount(e, index)}
                           />
                         </div>
@@ -127,7 +133,8 @@ export const AddGroupButton = ({ onSubmit }: AddGroupButtonProps) => {
                 <Button
                   className="flex flex-row items-center w-40 h-10"
                   type="submit"
-                  color={"blue"}>
+                  color={"blue"}
+                  onSubmit={() => formState.isSubmitted && setIsAddGroupOpen(false)}>
                   {formState.isSubmitting ? (
                     <Spinner className="mr-2 p-0" size={"md"} />
                   ) : (

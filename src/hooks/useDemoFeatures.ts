@@ -1,4 +1,4 @@
-import { useSelector, UseSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { RootState } from "../store/store";
 
 export const useDemoFeatures = () => {
