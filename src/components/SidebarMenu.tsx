@@ -53,7 +53,7 @@ export const SidebarMenu = ({ children }: SidebarMenuProps) => {
             <h1 className="font-semibold text-3xl text-blue-600">Split</h1>
             <h1 className="font-semibold text-3xl text-gray-800">Share</h1>
           </div>
-          <img src="\src\img\logo.svg" className="w-8"></img>
+          <img src={`${process.env.PUBLIC_URL}/src/img/logo.svg`} className="w-8"></img>
         </div>
         <div className="grid grid-rows-2 h-full content-between capitalize">
           <div className="h-full">
