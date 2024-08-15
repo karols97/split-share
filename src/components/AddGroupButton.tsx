@@ -106,8 +106,8 @@ export const AddGroupButton = ({ setGroups }: AddGroupButtonProps) => {
         <Modal show={isAddGroupOpen} popup dismissible onClose={() => setIsAddGroupOpen(false)}>
           <form onSubmit={handleSubmit(onSubmit)}>
             <ModalHeader>Add new group</ModalHeader>
-            <ModalBody className="flex justify-center p-10">
-              <div className="flex w-[500px] flex-col items-center gap-10">
+            <ModalBody className="flex justify-center p-10 overflow-y-auto h-5/6">
+              <div className="flex w-[525px] flex-col items-center gap-2 px-2">
                 <div className="flex flex-row w-full items-center justify-between">
                   <Label htmlFor="groupName" className="text-md">
                     Group Name:
@@ -129,8 +129,8 @@ export const AddGroupButton = ({ setGroups }: AddGroupButtonProps) => {
                     )}
                   </div>
                 </div>
-                <div className="flex flex-col w-full items-center gap-1 mt-2">
-                  <h1 className="w-full text-left font-semibold">Group members:</h1>
+                <h1 className="w-full text-left font-semibold">Group members:</h1>
+                <div className="flex flex-col bg-gray-50 w-full items-center rounded-md shadow-inner gap-1 max-h-72 overflow-y-auto overflow-x-hidden px-5">
                   {newGroupMembers.map((singleNewGroupMember, index) => {
                     return (
                       <div className="flex flex-row w-full items-center justify-between gap-2 mr-2 mt-3">
@@ -171,7 +171,7 @@ export const AddGroupButton = ({ setGroups }: AddGroupButtonProps) => {
                           )}
                         </div>
                         <div
-                          className="flex mt-6 text-blue-600 p-2 hover:bg-blue-50 active:bg-blue-200 rounded-md cursor-pointer"
+                          className="flex mt-2 p-2 text-blue-600 hover:bg-blue-50 active:bg-blue-200 rounded-md cursor-pointer"
                           onClick={() => removeGroupMember(index)}>
                           <IoIosRemoveCircleOutline size={20} />
                         </div>
@@ -181,7 +181,7 @@ export const AddGroupButton = ({ setGroups }: AddGroupButtonProps) => {
                 </div>
                 <div className="flex w-full flex-col">
                   <div
-                    className="flex w-full h-10 px-2 rounded-lg text-left justify-between text-blue-600 items-center border border-dashed border-blue-500 bg-blue-50 hover:bg-blue-100 active:bg-blue-200 cursor-pointer"
+                    className="flex w-full h-10 mt-4 px-2 rounded-lg text-left justify-between text-blue-600 items-center border border-dashed border-blue-500 bg-blue-50 hover:bg-blue-100 active:bg-blue-200 cursor-pointer"
                     onClick={addGroupMember}>
                     <p>Add member</p>
                     <IoIosAddCircleOutline className="mr-[2px]" size={21} />
@@ -196,7 +196,7 @@ export const AddGroupButton = ({ setGroups }: AddGroupButtonProps) => {
                 </div>
               </div>
             </ModalBody>
-            <ModalFooter>
+            <ModalFooter className="pt-0">
               <div className="flex flex-row w-full gap-2 items-center justify-center">
                 <Button
                   className="flex flex-row items-center w-40 h-10"

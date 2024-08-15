@@ -10,12 +10,20 @@ import { Topbar } from "../components/Topbar";
 
 export const GroupDetails = () => {
   const [groups, setGroups] = useState<Group[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
+    setIsLoading(true);
     fetch("/api/groups")
       .then((res) => res.json())
-      .then((json) => setGroups(json.groups))
-      .catch((error) => console.error(error));
+      .then((json) => {
+        setGroups(json.groups);
+        setIsLoading(false);
+      })
+      .catch((error) => {
+        console.error(error);
+        setIsLoading(false);
+      });
   }, []);
   const { id } = useParams();
   const group = groups.find((singleGroup) => {
@@ -34,10 +42,12 @@ export const GroupDetails = () => {
     <SidebarMenu>
       <>
         <Topbar title="Group details" />
-        <div className="overflow-y-scroll">
-          {group ? (
-            <div className="flex flex-col h-screen">
-              <div></div>
+        <div className="overflow-hidden">
+          {isLoading && (
+            <Spinner size={"xl"} color={"gray"} className="w-full my-20 overflow-hidden" />
+          )}
+          {group && !isLoading && (
+            <div className="flex flex-col h-screen overflow-y-auto">
               <div className="h-fit w-5/6 p-10 bg-slate-50 place-self-center mt-10 rounded-3xl border">
                 <div className="flex flex-row pb-4 items-start justify-between">
                   <div>
@@ -66,29 +76,23 @@ export const GroupDetails = () => {
                   <div className="flex flex-col md:flex-row justify-around gap-2 p-4">
                     <ShowDemoFeature>
                       <ConfirmationModal label="Are you sure you want to settle all expenses?">
-                        <Button className="w-40" color={"blue"}>
+                        <Button className="w-24 md:w-32" color={"blue"}>
                           Settle
                         </Button>
                       </ConfirmationModal>
                     </ShowDemoFeature>
                     <ShowDemoFeature>
-                      <Button className="w-40" color={"blue"}>
+                      <Button className="w-24 md:w-32 text-nowrap" color={"blue"}>
                         Add User
                       </Button>
                     </ShowDemoFeature>
                     <ShowDemoFeature>
-                      <Button className="w-40" color={"red"}>
+                      <Button className="w-24 md:w-32" color={"red"}>
                         Archive
                       </Button>
                     </ShowDemoFeature>
                   </div>
                 </div>
-              </div>
-            </div>
-          ) : (
-            <div className="flex w-full h-full items-center justify-center">
-              <div>
-                <Spinner size={"xl"} color={"gray"} className="" />
               </div>
             </div>
           )}

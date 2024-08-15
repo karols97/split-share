@@ -6,13 +6,21 @@ import { ShowDemoFeature } from "./ShowDemoFeature";
 
 export const AllGroupsTable = () => {
   const [groups, setGroups] = useState<Group[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
   const navigate = useNavigate();
 
   useEffect(() => {
+    setIsLoading(true);
     fetch("/api/groups")
       .then((res) => res.json())
-      .then((json) => setGroups(json.groups))
-      .catch((error) => console.error(error));
+      .then((json) => {
+        setGroups(json.groups);
+        setIsLoading(false);
+      })
+      .catch((error) => {
+        console.error(error);
+        setIsLoading(false);
+      });
   }, []);
 
   const deleteGroup = async (id: string) => {
@@ -34,10 +42,16 @@ export const AllGroupsTable = () => {
           <Table.HeadCell>Number of members</Table.HeadCell>
           <Table.HeadCell>Balance</Table.HeadCell>
           <Table.HeadCell>Status</Table.HeadCell>
-          <Table.HeadCell></Table.HeadCell>
+          <Table.HeadCell>Action</Table.HeadCell>
         </Table.Head>
         <Table.Body id="tableBody">
-          {groups ? (
+          {isLoading && (
+            <Table.Cell colSpan={5} className="">
+              <Spinner size={"xl"} color={"gray"} className="w-full my-10" />
+            </Table.Cell>
+          )}
+          {groups &&
+            !isLoading &&
             groups.map((singleGroup) => {
               const sum = singleGroup.members.reduce((accumulator, currentValue) => {
                 return accumulator + Number(currentValue.amount);
@@ -71,10 +85,7 @@ export const AllGroupsTable = () => {
                   </Table.Cell>
                 </Table.Row>
               );
-            })
-          ) : (
-            <Spinner color={"gray"} size={"xl"} className="flex items-center p-20" />
-          )}
+            })}
         </Table.Body>
       </Table>
     </div>
