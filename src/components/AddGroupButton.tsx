@@ -144,7 +144,9 @@ export const AddGroupButton = ({ setGroups }: AddGroupButtonProps) => {
                             type="text"
                             onChange={(e) => updateMemberName(e, index)}
                           />
-                          {errors.members && errors.members[index]?.userName ? (
+                          {errors.members &&
+                          errors.members[index] &&
+                          errors.members[index].userName ? (
                             <p className="text-xs h-2 text-red-700 font-semibold">
                               {errors.members[index].userName?.message}
                             </p>
@@ -162,7 +164,9 @@ export const AddGroupButton = ({ setGroups }: AddGroupButtonProps) => {
                             step="0.01"
                             onBlur={(e) => updateMemberAmount(e, index)}
                           />
-                          {errors.members && errors.members[index]?.amount ? (
+                          {errors.members &&
+                          errors.members[index] &&
+                          errors.members[index].amount ? (
                             <p className="text-xs h-2 text-red-700 font-semibold">
                               {errors.members[index].amount?.message}
                             </p>
