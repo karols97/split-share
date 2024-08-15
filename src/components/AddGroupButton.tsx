@@ -21,12 +21,18 @@ type AddGroupButtonProps = {
 export const AddGroupButton = ({ setGroups }: AddGroupButtonProps) => {
   const [isAddGroupOpen, setIsAddGroupOpen] = useState(false);
   const [newGroupMembers, setNewGroupMembers] = useState<Member[]>([]);
+  const [groupName, setGroupName] = useState<string>("");
   const { register, handleSubmit, formState, reset, watch } = useForm<Group>();
 
   const onSubmit: SubmitHandler<Group> = async (data) => {
+    const id = crypto.randomUUID();
+    const dataWithId = {
+      ...data,
+      id: id,
+    };
     const res = await fetch("/api/groups", {
       method: "POST",
-      body: JSON.stringify(data),
+      body: JSON.stringify(dataWithId),
     });
 
     const json = await res.json();
@@ -36,7 +42,7 @@ export const AddGroupButton = ({ setGroups }: AddGroupButtonProps) => {
 
   const allFields = watch();
   useEffect(() => {
-    reset({ ...allFields, members: newGroupMembers });
+    reset({ ...allFields, name: groupName, members: newGroupMembers });
   }, [newGroupMembers]);
 
   const addGroupMember = () => {
@@ -85,6 +91,9 @@ export const AddGroupButton = ({ setGroups }: AddGroupButtonProps) => {
                   </Label>
                   <TextInput
                     {...register("name")}
+                    {...register("id")}
+                    value={groupName}
+                    onChange={(e) => setGroupName(e.target.value)}
                     className="flex justify-center w-96"
                     id="groupName"
                     color={"blue"}

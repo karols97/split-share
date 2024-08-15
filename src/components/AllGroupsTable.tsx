@@ -15,11 +15,21 @@ export const AllGroupsTable = () => {
       .catch((error) => console.error(error));
   }, []);
 
+  const deleteGroup = async (id: string) => {
+    try {
+      await fetch(`/api/groups/${id}`, { method: "DELETE" });
+
+      const newGroups = [...groups].filter((singleGroup) => singleGroup.id !== id);
+      setGroups(newGroups);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   return (
     <div className="w-full h-full p-10 mb-10">
       <Table>
         <Table.Head className="rounded-t-lg border-b-2 border-blue-600">
-          <Table.HeadCell>Group ID</Table.HeadCell>
           <Table.HeadCell>Group Name</Table.HeadCell>
           <Table.HeadCell>Number of members</Table.HeadCell>
           <Table.HeadCell>Balance</Table.HeadCell>
@@ -38,7 +48,6 @@ export const AllGroupsTable = () => {
                   className="hover:bg-blue-500 hover:bg-opacity-15 cursor-pointer h-20"
                   onClick={() => navigate(`${singleGroup.id}`)}
                   id={`row-${singleGroup.id}`}>
-                  <Table.Cell>{singleGroup.id}</Table.Cell>
                   <Table.Cell>{singleGroup.name}</Table.Cell>
                   <Table.Cell>{singleGroup.members.length}</Table.Cell>
                   <Table.Cell
@@ -50,9 +59,12 @@ export const AllGroupsTable = () => {
                       Active
                     </Badge>
                   </Table.Cell>
-                  <Table.Cell>
+                  <Table.Cell onClick={(e) => e.stopPropagation()}>
                     <ShowDemoFeature>
-                      <Button color={"red"} className="py-0">
+                      <Button
+                        color={"red"}
+                        className="py-0"
+                        onClick={() => deleteGroup(singleGroup.id)}>
                         Delete group
                       </Button>
                     </ShowDemoFeature>

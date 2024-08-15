@@ -11,6 +11,9 @@ import { Provider } from "react-redux";
 import "./index.css";
 import "./i18n.ts";
 import "./store/server.ts";
+import { makeServer } from "./store/server.ts";
+
+makeServer();
 
 const router = createBrowserRouter([
   {

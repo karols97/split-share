@@ -1,4 +1,4 @@
-import { createServer } from "miragejs";
+import { createServer, Model } from "miragejs";
 
 export type Member = {
   id?: string;
@@ -7,28 +7,14 @@ export type Member = {
 };
 
 export interface Group {
-  id?: string;
+  id: string;
   name: string;
   members: Member[];
 }
 
-const createIds = (groups: Group[]) => {
-  return groups.map((singleGroup, groupIndex) => {
-    return {
-      id: `${groupIndex}`,
-      name: singleGroup.name,
-      members: singleGroup.members.map((singleMember, memberIndex) => {
-        return {
-          id: `${groupIndex}_${memberIndex}`,
-          ...singleMember,
-        };
-      }),
-    };
-  });
-};
-
-const groups = [
+const groups: Group[] = [
   {
+    id: crypto.randomUUID(),
     name: "Holidays",
     members: [
       {
@@ -46,6 +32,7 @@ const groups = [
     ],
   },
   {
+    id: crypto.randomUUID(),
     name: "Flat expenses",
     members: [
       {
@@ -63,6 +50,7 @@ const groups = [
     ],
   },
   {
+    id: crypto.randomUUID(),
     name: "Friday movie night",
     members: [
       {
@@ -84,6 +72,7 @@ const groups = [
     ],
   },
   {
+    id: crypto.randomUUID(),
     name: "Mountain trip",
     members: [
       {
@@ -105,6 +94,7 @@ const groups = [
     ],
   },
   {
+    id: crypto.randomUUID(),
     name: "Birthday preset",
     members: [
       {
@@ -127,23 +117,47 @@ const groups = [
   },
 ];
 
-createServer({
-  routes() {
-    this.namespace = "api";
+export const makeServer = () => {
+  return createServer({
+    models: {
+      group: Model.extend<Partial<Group>>({}),
+    },
 
-    this.post("groups", (schema, request) => {
-      let args = JSON.parse(request.requestBody);
-      groups.push(args);
+    seeds(server) {
+      groups.forEach((singleGroup) => server.create("group", singleGroup));
+    },
 
-      return {
-        groups: createIds(groups),
-      };
-    });
+    routes() {
+      this.namespace = "api";
 
-    this.get("/groups", () => {
-      return {
-        groups: createIds(groups),
-      };
-    });
-  },
-});
+      this.get("groups", (schema) => {
+        return {
+          groups: schema.db.groups,
+        };
+      });
+
+      this.post("groups", (schema, request) => {
+        let args = JSON.parse(request.requestBody);
+        //@ts-ignore
+        schema.groups.create(args);
+
+        return {
+          groups: schema.db.groups,
+        };
+      });
+
+      this.delete("/groups/:id", (schema, request) => {
+        let id = request.params.id;
+        //@ts-ignore
+        let group = schema.groups.find(id);
+
+        if (group) {
+          group.destroy();
+          return new Response(null, { status: 204 });
+        } else {
+          return new Response(null, { status: 404, statusText: "Group not found" });
+        }
+      });
+    },
+  });
+};
