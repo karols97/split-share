@@ -148,7 +148,7 @@ export const AddGroupButton = ({ setGroups }: AddGroupButtonProps) => {
                           errors.members[index] &&
                           errors.members[index].userName ? (
                             <p className="text-xs h-2 text-red-700 font-semibold">
-                              {errors.members[index].userName?.message}
+                              {errors.members[index].userName.message}
                             </p>
                           ) : (
                             <div className="h-2"></div>
@@ -168,7 +168,7 @@ export const AddGroupButton = ({ setGroups }: AddGroupButtonProps) => {
                           errors.members[index] &&
                           errors.members[index].amount ? (
                             <p className="text-xs h-2 text-red-700 font-semibold">
-                              {errors.members[index].amount?.message}
+                              {errors.members[index].amount.message}
                             </p>
                           ) : (
                             <div className="h-2"></div>
