@@ -5,10 +5,12 @@ import { Group } from "../store/server";
 import { AddGroupButton } from "../components/AddGroupButton";
 import { Topbar } from "../components/Topbar";
 import { Spinner } from "flowbite-react";
+import { useTranslation } from "react-i18next";
 
 export const Overview = () => {
   const [groups, setGroups] = useState<Group[]>([]);
   const [isLoading, setIsLoading] = useState(true);
+  const { t } = useTranslation("translation");
 
   useEffect(() => {
     setIsLoading(true);
@@ -27,7 +29,7 @@ export const Overview = () => {
   return (
     <SidebarMenu>
       <>
-        <Topbar title="Overview" />
+        <Topbar title={t("overview")} />
         <div className="overflow-hidden">
           {isLoading && (
             <Spinner size={"xl"} color={"gray"} className="w-full my-20 overflow-hidden" />

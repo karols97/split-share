@@ -56,7 +56,7 @@ export const SidebarMenu = ({ children }: SidebarMenuProps) => {
           </div>
           <img src={logo} className="w-8"></img>
         </div>
-        <div className="grid grid-rows-2 h-full content-between capitalize">
+        <div className="grid grid-rows-2 h-full content-between">
           <div className="h-full">
             <Sidebar
               theme={customTheme}
@@ -156,7 +156,7 @@ export const SidebarMenu = ({ children }: SidebarMenuProps) => {
                   }`}
                   icon={PiArrowsOutLineHorizontalFill}
                   color="blue">
-                  {isExpanded && "Hide sidebar"}
+                  {isExpanded && t("hideSidebar")}
                 </Sidebar.Item>
                 <Sidebar.Item
                   onClick={() => navigate("/")}

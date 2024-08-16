@@ -95,7 +95,7 @@ const groups: Group[] = [
   },
   {
     id: crypto.randomUUID(),
-    name: "Birthday preset",
+    name: "Birthday present",
     members: [
       {
         userName: "Creed",
