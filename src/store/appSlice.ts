@@ -6,7 +6,7 @@ interface AppState {
 }
 
 const initialState: AppState = {
-  demoFeatures: true,
+  demoFeatures: false,
   showSidebar: true,
 };
 
