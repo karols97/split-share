@@ -2,12 +2,14 @@ import { ToggleSwitch } from "flowbite-react";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../store/store";
 import { handleDemoFeatures } from "../store/appSlice";
+import { useTranslation } from "react-i18next";
 
 export const SwitchDemoFeatures = () => {
   const isShowedDemoFeatures = useSelector((state: RootState) => state.app.demoFeatures);
   const isExpanded = useSelector((state: RootState) => state.app.showSidebar);
   const dispatch = useDispatch();
-  const label = isExpanded ? "Show demo features" : "";
+  const { t } = useTranslation("translation");
+  const label = isExpanded ? t("showDemo") : "";
 
   return (
     <div className="flex flex-row gap-2">

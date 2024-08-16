@@ -15,6 +15,7 @@ import { Group, Member } from "../store/server";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { createGroupSchema } from "../schemas/createGroupSchema";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { useTranslation } from "react-i18next";
 
 type AddGroupButtonProps = {
   setGroups: (groups: Group[]) => void;
@@ -24,13 +25,14 @@ export const AddGroupButton = ({ setGroups }: AddGroupButtonProps) => {
   const [isAddGroupOpen, setIsAddGroupOpen] = useState(false);
   const [newGroupMembers, setNewGroupMembers] = useState<Member[]>([]);
   const [groupName, setGroupName] = useState<string>("");
+  const { t } = useTranslation("translation");
   const { register, handleSubmit, formState, reset, watch } = useForm<Group>({
     defaultValues: {
       id: "",
       name: "",
       members: [],
     },
-    //@ts-ignore
+    //@ts-expect-error different type of resolver
     resolver: yupResolver(createGroupSchema),
   });
 
@@ -100,17 +102,17 @@ export const AddGroupButton = ({ setGroups }: AddGroupButtonProps) => {
         <div
           className="w-full h-full flex flex-col justify-center items-center gap-1 pb-2"
           onClick={() => setIsAddGroupOpen(true)}>
-          <h1>Add new group</h1>
+          <h1>{t("addGroup")}</h1>
           <IoIosAddCircleOutline size={60} className="text-blue-600" />
         </div>
         <Modal show={isAddGroupOpen} popup dismissible onClose={() => setIsAddGroupOpen(false)}>
           <form onSubmit={handleSubmit(onSubmit)}>
-            <ModalHeader>Add new group</ModalHeader>
+            <ModalHeader>{t("addGroup")}</ModalHeader>
             <ModalBody className="flex justify-center p-10 overflow-y-auto h-5/6">
               <div className="flex w-[525px] flex-col items-center gap-2 px-2">
                 <div className="flex flex-row w-full items-center justify-between">
                   <Label htmlFor="groupName" className="text-md">
-                    Group Name:
+                    {t("groupName")}
                   </Label>
                   <div className="flex flex-col">
                     <TextInput
@@ -123,19 +125,19 @@ export const AddGroupButton = ({ setGroups }: AddGroupButtonProps) => {
                       color={"blue"}
                     />
                     {errors.name ? (
-                      <p className="text-xs text-red-700 font-semibold">{errors.name?.message}</p>
+                      <p className="text-xs text-red-700 font-semibold">{t("errors.groupName")}</p>
                     ) : (
                       <div className="h-2"></div>
                     )}
                   </div>
                 </div>
-                <h1 className="w-full text-left font-semibold">Group members:</h1>
+                <h1 className="w-full text-left font-semibold">{t("groupMembers")}</h1>
                 <div className="flex flex-col bg-gray-50 w-full items-center rounded-md shadow-inner gap-1 max-h-72 overflow-y-auto overflow-x-hidden px-5">
                   {newGroupMembers.map((singleNewGroupMember, index) => {
                     return (
                       <div className="flex flex-row w-full items-center justify-between gap-2 mr-2 mt-3">
                         <div className="flex flex-col w-2/3 ml-1">
-                          <Label htmlFor="userName">User Name</Label>
+                          <Label htmlFor="userName">{t("userName")}</Label>
                           <TextInput
                             {...register(`members.${index}.userName`)}
                             id="userName"
@@ -145,17 +147,17 @@ export const AddGroupButton = ({ setGroups }: AddGroupButtonProps) => {
                             onChange={(e) => updateMemberName(e, index)}
                           />
                           {errors.members &&
-                          errors.members[index] &&
-                          errors.members[index].userName ? (
-                            <p className="text-xs h-2 text-red-700 font-semibold">
-                              {errors.members[index].userName.message}
-                            </p>
-                          ) : (
-                            <div className="h-2"></div>
-                          )}
+                            errors.members[index] &&
+                            (errors.members[index]!.userName ? (
+                              <p className="text-xs h-2 text-red-700 font-semibold">
+                                {t("errors.userName")}
+                              </p>
+                            ) : (
+                              <div className="h-2"></div>
+                            ))}
                         </div>
                         <div className="flex flex-col">
-                          <Label htmlFor="userAmount">User amount</Label>
+                          <Label htmlFor="userAmount">{t("userAmount")}</Label>
                           <TextInput
                             {...register(`members.${index}.amount`)}
                             id="userAmount"
@@ -164,15 +166,6 @@ export const AddGroupButton = ({ setGroups }: AddGroupButtonProps) => {
                             step="0.01"
                             onBlur={(e) => updateMemberAmount(e, index)}
                           />
-                          {errors.members &&
-                          errors.members[index] &&
-                          errors.members[index].amount ? (
-                            <p className="text-xs h-2 text-red-700 font-semibold">
-                              {errors.members[index].amount.message}
-                            </p>
-                          ) : (
-                            <div className="h-2"></div>
-                          )}
                         </div>
                         <div
                           className="flex mt-2 p-2 text-blue-600 hover:bg-blue-50 active:bg-blue-200 rounded-md cursor-pointer"
@@ -187,12 +180,12 @@ export const AddGroupButton = ({ setGroups }: AddGroupButtonProps) => {
                   <div
                     className="flex w-full h-10 mt-4 px-2 rounded-lg text-left justify-between text-blue-600 items-center border border-dashed border-blue-500 bg-blue-50 hover:bg-blue-100 active:bg-blue-200 cursor-pointer"
                     onClick={addGroupMember}>
-                    <p>Add member</p>
+                    <p>{t("addMember")}</p>
                     <IoIosAddCircleOutline className="mr-[2px]" size={21} />
                   </div>
                   {errors.members ? (
                     <p className="text-xs h-2 text-red-700 font-semibold">
-                      {errors.members?.message}
+                      {t("errors.emptyGroup")}
                     </p>
                   ) : (
                     <div className="h-2"></div>
@@ -210,14 +203,14 @@ export const AddGroupButton = ({ setGroups }: AddGroupButtonProps) => {
                   {formState.isSubmitting ? (
                     <Spinner className="mr-2 p-0" size={"md"} />
                   ) : (
-                    <p>Confirm</p>
+                    <p>{t("confirm")}</p>
                   )}
                 </Button>
                 <Button
                   className="w-40 border-blue-600 bg-transparent text-blue-700 focus:ring-0"
                   color={"light"}
                   onClick={() => setIsAddGroupOpen(false)}>
-                  Cancel
+                  {t("cancel")}
                 </Button>
               </div>
             </ModalFooter>

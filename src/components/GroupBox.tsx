@@ -1,6 +1,7 @@
 import { RiRefund2Line } from "react-icons/ri";
 import { Group } from "../store/server";
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 type GroupBoxProps = {
   group: Group;
@@ -8,6 +9,7 @@ type GroupBoxProps = {
 
 export const GroupBox = ({ group }: GroupBoxProps) => {
   const navigate = useNavigate();
+  const { t } = useTranslation("translation");
 
   const sum = Number(
     group.members.reduce((accumulator, currentValue) => {
@@ -26,11 +28,13 @@ export const GroupBox = ({ group }: GroupBoxProps) => {
           <h1 className="text-xl font-semibold">{group.name}</h1>
           <RiRefund2Line size={24} />
         </div>
-        <p>Number of members: {group.members.length}</p>
+        <p>
+          {t("numberOfMembers")}: {group.members.length}
+        </p>
       </div>
 
       <div className="grid grid-rows-1 bt h-full items-end">
-        <p>{isUserOwed ? "You are owed:" : "You owe:"}</p>
+        <p>{isUserOwed ? t("youAreOwed") : t("youOwe")}</p>
         <p className={`text-6xl ${isUserOwed ? "text-green-500" : "text-red-500"} font-semibold`}>
           {sum.toFixed(2)}
         </p>

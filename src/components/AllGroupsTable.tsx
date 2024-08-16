@@ -2,12 +2,13 @@ import { Badge, Button, Spinner, Table } from "flowbite-react";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Group } from "../store/server";
-import { ShowDemoFeature } from "./ShowDemoFeature";
+import { useTranslation } from "react-i18next";
 
 export const AllGroupsTable = () => {
   const [groups, setGroups] = useState<Group[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const navigate = useNavigate();
+  const { t } = useTranslation("translation");
 
   useEffect(() => {
     setIsLoading(true);
@@ -38,11 +39,11 @@ export const AllGroupsTable = () => {
     <div className="w-full h-full p-10 mb-10">
       <Table>
         <Table.Head className="rounded-t-lg border-b-2 border-blue-600">
-          <Table.HeadCell>Group Name</Table.HeadCell>
-          <Table.HeadCell>Number of members</Table.HeadCell>
-          <Table.HeadCell>Balance</Table.HeadCell>
-          <Table.HeadCell>Status</Table.HeadCell>
-          <Table.HeadCell>Action</Table.HeadCell>
+          <Table.HeadCell>{t("groupName")}</Table.HeadCell>
+          <Table.HeadCell>{t("numberOfMembers")}</Table.HeadCell>
+          <Table.HeadCell>{t("balance")}</Table.HeadCell>
+          <Table.HeadCell>{t("status")}</Table.HeadCell>
+          <Table.HeadCell>{t("action")}</Table.HeadCell>
         </Table.Head>
         <Table.Body id="tableBody">
           {isLoading && (
@@ -70,18 +71,16 @@ export const AllGroupsTable = () => {
                   </Table.Cell>
                   <Table.Cell>
                     <Badge color="success" className="w-fit">
-                      Active
+                      {t("active")}
                     </Badge>
                   </Table.Cell>
                   <Table.Cell onClick={(e) => e.stopPropagation()}>
-                    <ShowDemoFeature>
-                      <Button
-                        color={"red"}
-                        className="py-0"
-                        onClick={() => deleteGroup(singleGroup.id)}>
-                        Delete group
-                      </Button>
-                    </ShowDemoFeature>
+                    <Button
+                      color={"red"}
+                      className="py-0"
+                      onClick={() => deleteGroup(singleGroup.id)}>
+                      {t("deleteGroup")}
+                    </Button>
                   </Table.Cell>
                 </Table.Row>
               );

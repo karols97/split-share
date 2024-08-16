@@ -1,6 +1,7 @@
 import { Button } from "flowbite-react";
 import { RiArrowRightDoubleFill } from "react-icons/ri";
 import { useNavigate } from "react-router-dom";
+import logo from "../img/logo.svg";
 
 export const StartPage = () => {
   const navigate = useNavigate();
@@ -10,7 +11,7 @@ export const StartPage = () => {
       <div className="p-24 flex flex-row">
         <h1 className="font-semibold text-6xl text-blue-600">Split</h1>
         <h1 className="font-semibold text-6xl text-gray-800">Share</h1>
-        <img src="src\img\logo.svg" className="w-16 ml-4"></img>
+        <img src={logo} className="w-16 ml-4"></img>
       </div>
       <div className="flex h-full w-full justify-center">
         <Button

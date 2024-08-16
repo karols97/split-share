@@ -95,7 +95,7 @@ const groups: Group[] = [
   },
   {
     id: crypto.randomUUID(),
-    name: "Birthday preset",
+    name: "Birthday present",
     members: [
       {
         userName: "Creed",
@@ -137,8 +137,8 @@ export const makeServer = () => {
       });
 
       this.post("groups", (schema, request) => {
-        let args = JSON.parse(request.requestBody);
-        //@ts-ignore
+        const args = JSON.parse(request.requestBody);
+        //@ts-expect-error no groups in schema type
         schema.groups.create(args);
 
         return {
@@ -147,9 +147,9 @@ export const makeServer = () => {
       });
 
       this.delete("/groups/:id", (schema, request) => {
-        let id = request.params.id;
-        //@ts-ignore
-        let group = schema.groups.find(id);
+        const id = request.params.id;
+        //@ts-expect-error no groups in schema type
+        const group = schema.groups.find(id);
 
         if (group) {
           group.destroy();
