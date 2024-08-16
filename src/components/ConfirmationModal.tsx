@@ -1,6 +1,5 @@
 import { Button, Modal, ModalBody, ModalFooter } from "flowbite-react";
 import { useState } from "react";
-// import { settleGroup } from "../services/settleGroup";
 
 type ConfirmationModalProps = {
   children: JSX.Element;
