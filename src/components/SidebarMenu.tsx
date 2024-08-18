@@ -10,8 +10,15 @@ import { useTranslation } from "react-i18next";
 import { SwitchDemoFeatures } from "./SwitchDemoFeatures";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../store/store";
-import { handleShowSidebar } from "../store/appSlice";
+import {
+  handleShowSidebar,
+  expandSidebar,
+  collapseSidebar,
+  setUserSidebarControl,
+  unsetUserSidebarControl,
+} from "../store/appSlice";
 import logo from "../img/logo.svg";
+import { useEffect, useRef } from "react";
 
 type SidebarMenuProps = {
   children?: JSX.Element;
@@ -20,9 +27,35 @@ type SidebarMenuProps = {
 export const SidebarMenu = ({ children }: SidebarMenuProps) => {
   const dispatch = useDispatch();
   const isExpanded = useSelector((state: RootState) => state.app.showSidebar);
+  const isControlledByUser = useSelector((state: RootState) => state.app.userSidebarControl);
   const { t, i18n } = useTranslation("translation");
   const navigate = useNavigate();
   const location = useLocation().pathname;
+  const previousWidth = useRef(window.innerWidth);
+
+  useEffect(() => {
+    const handleResize = () => {
+      const currentWidth = window.innerWidth;
+      const breakpointWidth = 768;
+      if (isControlledByUser === false) {
+        if (currentWidth < breakpointWidth) {
+          dispatch(collapseSidebar());
+        } else {
+          dispatch(expandSidebar());
+        }
+      } else if (previousWidth.current > breakpointWidth && currentWidth <= breakpointWidth) {
+        dispatch(unsetUserSidebarControl());
+      }
+      previousWidth.current = currentWidth;
+    };
+
+    handleResize();
+    window.addEventListener("resize", handleResize);
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, [dispatch, isControlledByUser]);
+
   const customTheme = {
     item: {
       base: "h-10 w-full flex items-center justify-center rounded-xl p-3 text-sm font-semibold text-gray-900 hover:bg-blue-500 hover:bg-opacity-15 dark:text-white dark:hover:bg-gray-700 border border-gray-300",
@@ -150,7 +183,10 @@ export const SidebarMenu = ({ children }: SidebarMenuProps) => {
                 )}
 
                 <Sidebar.Item
-                  onClick={() => dispatch(handleShowSidebar())}
+                  onClick={() => {
+                    dispatch(setUserSidebarControl());
+                    dispatch(handleShowSidebar());
+                  }}
                   className={`border-0 group font-normal hover:bg-blue-200 hover:bg-transparent cursor-pointer h-10 p-3 ${
                     !isExpanded && "pl-8 pr-2"
                   }`}

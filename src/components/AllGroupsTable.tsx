@@ -36,7 +36,7 @@ export const AllGroupsTable = () => {
   };
 
   return (
-    <div className="w-full h-full p-10 mb-10">
+    <div className="w-min md:w-full h-full p-10 mb-10">
       <Table>
         <Table.Head className="rounded-t-lg border-b-2 border-blue-600">
           <Table.HeadCell>{t("groupName")}</Table.HeadCell>
