@@ -35,11 +35,22 @@ export const Overview = () => {
             <Spinner size={"xl"} color={"gray"} className="w-full my-20 overflow-hidden" />
           )}
           {groups && !isLoading && (
-            <div className="h-full grid grid-cols-3 gap-10 px-16 py-10 overflow-y-auto">
+            <div
+              className="h-full flex flex-col items-center md:grid md:grid-cols-2 lg:grid-cols-3 gap-10 px-4 md:px-8 lg:px-16 py-10 overflow-y-auto"
+              key={"groups"}>
+              <div className="md:hidden">
+                <AddGroupButton setGroups={setGroups} />
+              </div>
               {groups.map((singleGroup) => {
-                return <GroupBox group={singleGroup} />;
+                return (
+                  <div key={`groupBox-${singleGroup.id}`}>
+                    <GroupBox group={singleGroup} />
+                  </div>
+                );
               })}
-              <AddGroupButton setGroups={setGroups} />
+              <div className="hidden md:block">
+                <AddGroupButton setGroups={setGroups} />
+              </div>
             </div>
           )}
         </div>

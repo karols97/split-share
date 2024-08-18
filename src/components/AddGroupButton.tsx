@@ -98,7 +98,7 @@ export const AddGroupButton = ({ setGroups }: AddGroupButtonProps) => {
 
   return (
     <>
-      <div className="flex flex-col h-52 w-64 p-2 px-3 content-between border-2 border-dashed border-blue-500 rounded-lg shadow-xl bg-blue-500 bg-opacity-10 hover:bg-opacity-20 active:border-2 active:border-blue-500 cursor-pointer">
+      <div className="flex flex-col h-32 w-52 sm:h-52 sm:w-64 p-2 px-3 content-between border-2 border-dashed border-blue-500 rounded-lg shadow-xl bg-blue-500 bg-opacity-10 hover:bg-opacity-20 active:border-2 active:border-blue-500 cursor-pointer">
         <div
           className="w-full h-full flex flex-col justify-center items-center gap-1 pb-2"
           onClick={() => setIsAddGroupOpen(true)}>
@@ -120,7 +120,7 @@ export const AddGroupButton = ({ setGroups }: AddGroupButtonProps) => {
                       {...register("id")}
                       value={groupName}
                       onChange={(e) => setGroupName(e.target.value)}
-                      className="flex justify-center w-96"
+                      className="flex justify-center md:w-96"
                       id="groupName"
                       color={"blue"}
                     />
@@ -135,43 +135,45 @@ export const AddGroupButton = ({ setGroups }: AddGroupButtonProps) => {
                 <div className="flex flex-col bg-gray-50 w-full items-center rounded-md shadow-inner gap-1 max-h-72 overflow-y-auto overflow-x-hidden px-5">
                   {newGroupMembers.map((singleNewGroupMember, index) => {
                     return (
-                      <div className="flex flex-row w-full items-center justify-between gap-2 mr-2 mt-3">
-                        <div className="flex flex-col w-2/3 ml-1">
-                          <Label htmlFor="userName">{t("userName")}</Label>
-                          <TextInput
-                            {...register(`members.${index}.userName`)}
-                            id="userName"
-                            color={"blue"}
-                            value={singleNewGroupMember.userName}
-                            type="text"
-                            onChange={(e) => updateMemberName(e, index)}
-                          />
-                          {errors.members &&
-                            errors.members[index] &&
-                            (errors.members[index]!.userName ? (
-                              <p className="text-xs h-2 text-red-700 font-semibold">
-                                {t("errors.userName")}
-                              </p>
-                            ) : (
-                              <div className="h-2"></div>
-                            ))}
+                      <div className="flex flex-col gap-0 my-3">
+                        <div className="flex flex-row w-full items-center justify-between gap-2 mr-2">
+                          <div className="flex flex-col w-2/3 ml-1">
+                            <Label htmlFor="userName">{t("userName")}</Label>
+                            <TextInput
+                              {...register(`members.${index}.userName`)}
+                              id="userName"
+                              color={"blue"}
+                              value={singleNewGroupMember.userName}
+                              type="text"
+                              onChange={(e) => updateMemberName(e, index)}
+                            />
+                          </div>
+                          <div className="flex flex-col">
+                            <Label htmlFor="userAmount">{t("userAmount")}</Label>
+                            <TextInput
+                              {...register(`members.${index}.amount`)}
+                              id="userAmount"
+                              color={"blue"}
+                              type="number"
+                              step="0.01"
+                              onBlur={(e) => updateMemberAmount(e, index)}
+                            />
+                          </div>
+                          <div
+                            className="flex mt-2 p-2 text-blue-600 hover:bg-blue-50 active:bg-blue-200 rounded-md cursor-pointer"
+                            onClick={() => removeGroupMember(index)}>
+                            <IoIosRemoveCircleOutline size={20} />
+                          </div>
                         </div>
-                        <div className="flex flex-col">
-                          <Label htmlFor="userAmount">{t("userAmount")}</Label>
-                          <TextInput
-                            {...register(`members.${index}.amount`)}
-                            id="userAmount"
-                            color={"blue"}
-                            type="number"
-                            step="0.01"
-                            onBlur={(e) => updateMemberAmount(e, index)}
-                          />
-                        </div>
-                        <div
-                          className="flex mt-2 p-2 text-blue-600 hover:bg-blue-50 active:bg-blue-200 rounded-md cursor-pointer"
-                          onClick={() => removeGroupMember(index)}>
-                          <IoIosRemoveCircleOutline size={20} />
-                        </div>
+                        {errors.members &&
+                          errors.members[index] &&
+                          (errors.members[index]!.userName ? (
+                            <p className="text-xs h-2 text-red-700 font-semibold">
+                              {t("errors.userName")}
+                            </p>
+                          ) : (
+                            <div className="h-2"></div>
+                          ))}
                       </div>
                     );
                   })}
@@ -183,7 +185,7 @@ export const AddGroupButton = ({ setGroups }: AddGroupButtonProps) => {
                     <p>{t("addMember")}</p>
                     <IoIosAddCircleOutline className="mr-[2px]" size={21} />
                   </div>
-                  {errors.members ? (
+                  {errors.members && errors.members.message ? (
                     <p className="text-xs h-2 text-red-700 font-semibold">
                       {t("errors.emptyGroup")}
                     </p>

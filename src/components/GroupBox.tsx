@@ -21,21 +21,24 @@ export const GroupBox = ({ group }: GroupBoxProps) => {
 
   return (
     <div
-      className="flex flex-col h-52 w-64 p-2 px-3 content-between border border-slate-300 rounded-lg bg-slate-50 shadow-xl  hover:bg-blue-500 hover:bg-opacity-15 active:border-2 active:border-blue-500 cursor-pointer"
+      className="flex flex-col h-32 w-52 sm:h-52 sm:w-64 p-2 px-3 content-normal border border-slate-300 rounded-lg bg-slate-50 shadow-xl  hover:bg-blue-500 hover:bg-opacity-15 active:border-2 active:border-blue-500 cursor-pointer"
       onClick={() => navigate(`/groups/${group.id}`)}>
       <div>
         <div className="flex flex-row items-center justify-between">
-          <h1 className="text-xl font-semibold">{group.name}</h1>
+          <h1 className="sm:text-xl font-semibold">{group.name}</h1>
           <RiRefund2Line size={24} />
         </div>
-        <p>
+        <p className="text-sm sm:text-lg">
           {t("numberOfMembers")}: {group.members.length}
         </p>
       </div>
 
-      <div className="grid grid-rows-1 bt h-full items-end">
+      <div className="grid grid-rows-1 bt h-full items-end text-sm sm:text-lg">
         <p>{isUserOwed ? t("youAreOwed") : t("youOwe")}</p>
-        <p className={`text-6xl ${isUserOwed ? "text-green-500" : "text-red-500"} font-semibold`}>
+        <p
+          className={`text-3xl sm:text-6xl ${
+            isUserOwed ? "text-green-500" : "text-red-500"
+          } font-semibold`}>
           {sum.toFixed(2)}
         </p>
       </div>

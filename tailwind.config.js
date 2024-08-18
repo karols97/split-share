@@ -1,4 +1,4 @@
-const flowbite = require("flowbite-react/tailwind");
+import flowbite from "flowbite-react/tailwind";
 
 /** @type {import('tailwindcss').Config} */
 export default {
@@ -7,6 +7,7 @@ export default {
     extend: {
       backgroundImage: {
         "start-page": "url('/src/img/split-share-bg.svg')",
+        "start-page-mobile": "url('/src/img/split-share-bg-mobile.jpg')",
       },
     },
   },
