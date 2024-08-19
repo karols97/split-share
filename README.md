@@ -15,15 +15,15 @@ SplitShare is a Single-Page-Application (SPA) developed in ReactJS and TypeScrip
 
 Local project installation
 
-1.Clone project repository
+1. Clone project repository
 
-2.Install project dependencies. Run:
+2. Install project dependencies. Run:
 
 ```bash
   npm install
 ```
 
-3.To run the app locally, run:
+3. To run the app locally, run:
 
 ```bash
   npm run dev
