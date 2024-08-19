@@ -1,27 +1,34 @@
-# React + TypeScript + Vite
+# SplitShare
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This project is a demo of a bill-splitting app. It simulates user group creation and management, calculates group overall balance and allows deletion. User is able to see the details of the group, which consist of list of group users and their individual balances.
 
-Currently, two official plugins are available:
+## Demo
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+The app demo is deployed and available to use under this link:
+https://split-share-7ivg.vercel.app/
 
-## Expanding the ESLint configuration
+## Tech Stack
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+SplitShare is a Single-Page-Application (SPA) developed in ReactJS and TypeScript. It was created in [Vite](https://vitejs.dev/), a fast and efficient tool for building applications and module bundling. SplitShare is a demo front-end application. It simulates integration with API using [MirageJS](https://miragejs.com/), which is a JavaScript library that enables mocking the server and calling HTTP requests. For routing it uses [React-Router](https://reactrouter.com/en/main), which allows to create multiple routes and dynamic URL-based views. The app is available in three languages: english, polish and spanish. The internationalization is created with [i18-next](https://www.i18next.com/), a JavaScript library providing tools to localize content in web apps. General app states, like sidebar state or demo features, are managed by [React-Redux](https://react-redux.js.org/). New group creation feature is developed based on two libraries: [React Hook Form](https://react-hook-form.com/) for submission handling and [yup](https://www.npmjs.com/package/yup/v/1.0.0-alpha.3) for form validation. The app uses ready-to-use components provided by [Flowbite-React](https://flowbite-react.com/), with adjusted themes and styling. SplitShare is fully responsive and mobile-friendly website, utilizing [TailwindCSS](https://tailwindcss.com/) breakpoint prefixes and window events, such as resize.
 
-- Configure the top-level `parserOptions` property like this:
+## Run locally
 
-```js
-   parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-   },
+Local project installation
+
+1.Clone project repository
+
+2.Install project dependencies. Run:
+
+```bash
+  npm install
 ```
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+3.To run the app locally, run:
+
+```bash
+  npm run dev
+```
+
+## Feedback
+
+If you have any suggestions on how to optimize or enhance the code or application feel free to reach out to me via email: kslupinski97@gmail.com. Constructive feedback and criticism is always appreciated!
